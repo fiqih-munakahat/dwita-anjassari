@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiqih Munakahat Digital | Portal Edukasi Pernikahan Islam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { 'gold': '#D4AF37' },
+          boxShadow: {
+            'soft':  '0 2px 8px rgba(0,0,0,0.04)',
+            'card':  '0 4px 20px rgba(0,0,0,0.06)',
+            'float': '0 8px 32px rgba(0,0,0,0.08)',
+            'gold':  '0 6px 24px rgba(212,175,55,0.32)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+ 
+    /* ── Page Switching ───────────────────────── */
+    .page-section { display: none; }
+    .page-section.active {
+      display: block;
+      animation: fadeSlideUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    /* ── Navbar Active State ──────────────────── */
+    .nav-item { position: relative; }
+    .nav-item.is-active .nav-link { color: #D4AF37 !important; font-weight: 600; }
+    .nav-dot { display: none; }
+    .nav-item.is-active .nav-dot {
+      display: block;
+      position: absolute;
+      bottom: -7px; left: 50%;
+      transform: translateX(-50%);
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #D4AF37;
+    }
+ 
+    /* ── Cards ────────────────────────────────── */
+    .card-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .card-lift:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+ 
+    /* ── Accordion ────────────────────────────── */
+    details summary { list-style: none; cursor: pointer; user-select: none; }
+    details summary::-webkit-details-marker { display: none; }
+    .faq-arrow { transition: transform 0.25s ease; display: inline-block; }
+    details[open] .faq-arrow { transform: rotate(180deg); }
+    details[open] summary { color: #D4AF37; }
+ 
+    /* ── Scrollbar ────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #f4f4f5; }
+    ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 99px; }
+ 
+    /* ── Hamburger Animation ──────────────────── */
+    .ham-line { transition: all 0.3s ease; }
+    #hamburger.open .ham-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #hamburger.open .ham-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #hamburger.open .ham-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+ 
+    /* ── Gold CTA button ──────────────────────── */
+    .btn-gold {
+      background: #D4AF37;
+      color: #fff;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .btn-gold:hover { background: #b8962f; box-shadow: 0 6px 24px rgba(212,175,55,0.35); transform: translateY(-1px); }
+ 
+    /* ── Mobile menu slide ────────────────────── */
+    #mobile-menu { animation: menuSlide 0.25s ease both; }
+    @keyframes menuSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    /* ── Article Modal ────────────────────────── */
+    #article-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      padding: 1.25rem;
+      background: rgba(10, 10, 10, 0.50);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+    }
+    #article-modal.modal-open {
+      display: flex;
+      animation: modalBgIn 0.28s ease both;
+    }
+    #article-modal.modal-closing { animation: modalBgOut 0.22s ease both; }
+    @keyframes modalBgIn  { from { opacity:0; } to { opacity:1; } }
+    @keyframes modalBgOut { from { opacity:1; } to { opacity:0; } }
+ 
+    .modal-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      width: 100%;
+      max-width: 780px;
+      margin: auto;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+      animation: modalCardIn 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .modal-card.modal-card-closing { animation: modalCardOut 0.22s ease both; }
+    @keyframes modalCardIn  { from { opacity:0; transform:scale(0.93) translateY(24px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    @keyframes modalCardOut { from { opacity:1; transform:scale(1);                     } to { opacity:0; transform:scale(0.96) translateY(16px); } }
+ 
+    /* Article body typography */
+    .article-body h2 {
+      font-size: 1rem; font-weight: 700; color: #27272a;
+      margin-top: 1.75rem; margin-bottom: 0.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #fef3c7;
+    }
+    .article-body h3 {
+      font-size: 0.875rem; font-weight: 700; color: #3f3f46;
+      margin-top: 1.25rem; margin-bottom: 0.4rem;
+    }
+    .article-body p {
+      font-size: 0.875rem; color: #52525b;
+      line-height: 1.8; margin-bottom: 0.8rem;
+    }
+    .article-body ul { margin-bottom: 0.8rem; padding-left: 0; list-style: none; }
+    .article-body ul li {
+      font-size: 0.8125rem; color: #52525b;
+      line-height: 1.7; padding-left: 1.25rem;
+      position: relative; margin-bottom: 0.4rem;
+    }
+    .article-body ul li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: #D4AF37; font-size: 0.65rem; top: 0.25rem;
+    }
+    .article-body ol { margin-bottom: 0.8rem; padding-left: 0; list-style: none; counter-reset: art-counter; }
+    .article-body ol li {
+      font-size: 0.8125rem; color: #52525b;
+      line-height: 1.7; padding-left: 1.5rem;
+      position: relative; margin-bottom: 0.4rem;
+      counter-increment: art-counter;
+    }
+    .article-body ol li::before {
+      content: counter(art-counter) "."; position: absolute; left: 0;
+      color: #D4AF37; font-weight: 700; font-size: 0.75rem; top: 0.1rem;
+    }
+    .article-body blockquote {
+      border-left: 3px solid #D4AF37;
+      padding: 0.875rem 1.125rem;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border-radius: 0 0.75rem 0.75rem 0;
+      margin: 1.25rem 0;
+    }
+    .article-body blockquote p { color: #78716c; font-style: italic; margin-bottom: 0; font-size: 0.8125rem; }
+    .article-body blockquote cite { font-size: 0.7rem; color: #D4AF37; font-weight: 600; font-style: normal; display: block; margin-top: 0.375rem; }
+    .article-body .highlight-box {
+      background: #fafafa; border: 1px solid #e4e4e7;
+      border-left: 3px solid #D4AF37;
+      border-radius: 0.875rem; padding: 1rem 1.25rem; margin: 1.25rem 0;
+    }
+    .article-body .highlight-box p { margin-bottom: 0; font-size: 0.8125rem; }
+    .article-body strong { color: #3f3f46; font-weight: 600; }
+    .article-body em { color: #78716c; }
+
+
+  </style>
+</head>
+<body class="bg-zinc-50 text-zinc-800 antialiased min-h-screen">
+
+<!-- ============================================================
+     STICKY NAVBAR
+============================================================ -->
+<div class="sticky top-0 z-50 pt-3 px-4 pb-2">
+  <div class="max-w-6xl mx-auto">
+    <nav class="backdrop-blur-xl bg-white/30 border border-zinc-200/60 rounded-full px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] flex items-center justify-between">
+
+      <!-- Brand -->
+      <div class="flex items-center gap-2.5 flex-shrink-0">
+        <div class="flex flex-col leading-tight">
+          <p class="text-xs font-bold text-zinc-800 tracking-tight">Fiqih Munakahat</p>
+          <p class="text-[9px] text-zinc-400 font-medium tracking-widest uppercase">Portal Edukasi Digital</p>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden lg:flex items-center gap-0.5" id="desktop-nav">
+        <li class="nav-item is-active" data-page="beranda">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('beranda');return false;">Beranda</a>
+          <span class="nav-dot"></span>
+        </li>
+        <li class="nav-item" data-page="dasar-hukum">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('dasar-hukum');return false;">Dasar Hukum</a>
+          <span class="nav-dot"></span>
+        </li>
+        <li class="nav-item" data-page="pranikah">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('pranikah');return false;">Pranikah &amp; Mahram</a>
+          <span class="nav-dot"></span>
+        </li>
+        <li class="nav-item" data-page="panduan">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('panduan');return false;">Panduan Nikah</a>
+          <span class="nav-dot"></span>
+        </li>
+        <li class="nav-item" data-page="artikel">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('artikel');return false;">Artikel</a>
+          <span class="nav-dot"></span>
+        </li>
+        <li class="nav-item" data-page="faq">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('faq');return false;">FAQ</a>
+          <span class="nav-dot"></span>
+        </li>
+        <li class="nav-item" data-page="profil">
+          <a href="#" class="nav-link text-xs font-medium text-zinc-500 hover:text-amber-600 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all" onclick="showPage('profil');return false;">Profil</a>
+          <span class="nav-dot"></span>
+        </li>
+      </ul>
+
+      <!-- Hamburger (Mobile) -->
+      <button id="hamburger" class="lg:hidden flex flex-col gap-1.5 p-2 rounded-full hover:bg-zinc-100 transition-colors" onclick="toggleMobile()" aria-label="Menu">
+        <span class="ham-line w-5 h-0.5 bg-zinc-600 block rounded-full"></span>
+        <span class="ham-line w-5 h-0.5 bg-zinc-600 block rounded-full"></span>
+        <span class="ham-line w-5 h-0.5 bg-zinc-600 block rounded-full"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden mt-2 bg-white/95 backdrop-blur-xl border border-zinc-200/60 rounded-2xl shadow-float overflow-hidden">
+      <div class="p-2 grid grid-cols-2 gap-1">
+        <button class="mobile-nav text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="beranda" onclick="showPage('beranda')" >Beranda</button>
+        <button class="mobile-nav text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="dasar-hukum" onclick="showPage('dasar-hukum')">Dasar Hukum</button>
+        <button class="mobile-nav text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="pranikah" onclick="showPage('pranikah')">Pranikah &amp; Mahram</button>
+        <button class="mobile-nav text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="panduan" onclick="showPage('panduan')">Panduan Nikah</button>
+        <button class="mobile-nav text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="artikel" onclick="showPage('artikel')">Artikel</button>
+        <button class="mobile-nav text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="faq" onclick="showPage('faq')">FAQ</button>
+        <button class="mobile-nav col-span-2 text-left px-4 py-3 rounded-xl text-sm font-medium text-zinc-600 hover:bg-amber-50 hover:text-amber-600 transition-colors" data-page="profil" onclick="showPage('profil')">Profil</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 pt-4 pb-20">
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE 1 — BERANDA
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-beranda" class="page-section active">
+
+    <!-- Hero -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[78vh] py-6">
+
+      <!-- Left: Text -->
+      <div class="space-y-6 order-2 lg:order-1">
+        
+        <h1 class="text-4xl lg:text-[2.85rem] font-bold text-zinc-800 leading-[1.18] tracking-tight">
+          Membangun <span class="text-amber-600">Keluarga Sakinah</span><br>dengan Ilmu yang Benar
+        </h1>
+
+        <p class="text-[15px] text-zinc-500 leading-relaxed">
+          Selamat datang di Portal Edukasi Fiqih Munakahat Digital. Platform ini menyajikan rekonstruksi hukum pernikahan Islam secara komprehensif, memadukan khazanah fiqih klasik dengan hukum positif di Indonesia.
+        </p>
+
+        <p class="text-sm text-zinc-400 leading-relaxed">
+          Website ini dirancang khusus sebagai media edukasi digital untuk meningkatkan pemahaman berbagai kalangan masyarakat—mulai dari remaja, calon pengantin, hingga orang tua—mengenai kesucian ikatan pernikahan serta hak dan kewajiban dalam rumah tangga secara adil. Seluruh informasi disusun berdasarkan Al-Qur'an, As-Sunnah, Kompilasi Hukum Islam (KHI), serta UU No. 16 Tahun 2019 tentang Perkawinan, guna memberikan literasi hukum pranikah yang valid demi terwujudnya keluarga yang sakinah, mawaddah, warahmah.
+        </p>
+
+        <button onclick="showPage('dasar-hukum')" class="btn-gold inline-flex items-center gap-2.5 font-semibold text-sm px-7 py-3.5 rounded-full">
+          Pelajari Dasar Hukum
+        </button>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-6 pt-2">
+          <div>
+            <p class="text-2xl font-bold text-zinc-800">7</p>
+            <p class="text-xs text-zinc-400 font-medium mt-0.5">Modul Materi</p>
+          </div>
+          <div class="w-px h-10 bg-zinc-200"></div>
+          <div>
+            <p class="text-2xl font-bold text-zinc-800">8</p>
+            <p class="text-xs text-zinc-400 font-medium mt-0.5">Artikel Riset</p>
+          </div>
+          <div class="w-px h-10 bg-zinc-200"></div>
+          <div>
+            <p class="text-2xl font-bold text-zinc-800">100%</p>
+            <p class="text-xs text-zinc-400 font-medium mt-0.5">Berbasis Syariat</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="relative order-1 lg:order-2">
+        <div class="absolute"></div>
+        <img
+          src="akad.jpg"
+          alt="Prosesi Akad Nikah"
+          class="relative rounded-3xl w-full object-cover h-[420px] lg:h-[500px] shadow-[0_24px_64px_rgba(0,0,0,0.12)]"
+        >
+        <!-- Floating Badge -->
+        <div class="absolute bottom-5 left-5 bg-white/92 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.10)] border border-zinc-100/80">
+          <div class="flex items-center gap-3">
+            <img src="alquran.png" alt="quran" class="h-8 w-8">
+            <div>
+              <p class="text-xs font-semibold text-zinc-800">"Mitsaqan Ghalizha"</p>
+              <p class="text-[10px] text-amber-600 font-medium">QS. An-Nisa: 21</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-4 my-14">
+      <div class="flex-1 h-px bg-zinc-200"></div>
+      <div class="flex-1 h-px bg-zinc-200"></div>
+    </div>
+
+    <!-- Visi & Misi -->
+    <div class="space-y-8">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl font-bold text-zinc-800">Visi &amp; Misi</h2>
+        <p class="text-sm text-zinc-400">Komitmen kami dalam menghadirkan edukasi pernikahan Islam yang terpercaya</p>
+        <div class="w-10 h-0.5 bg-amber-500 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Visi -->
+        <div class="bg-white rounded-2xl p-7 border border-amber-200/50 shadow-soft card-lift relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-600 rounded-t-2xl"></div>
+          <div class="flex items-start gap-4 mb-4">
+            <div>
+              <span class="text-[10px] font-bold tracking-widest text-amber-500 uppercase">Visi Kami</span>
+              <h3 class="text-base font-bold text-zinc-800 mt-0.5">Terdepan &amp; Inklusif</h3>
+            </div>
+          </div>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            Menjadi portal literasi digital Fiqih Munakahat terdepan yang inklusif, adaptif, dan mudah dipahami oleh seluruh lapisan masyarakat demi membangun ketahanan keluarga islami yang kokoh.
+          </p>
+        </div>
+
+        <!-- Misi -->
+        <div class="bg-white rounded-2xl p-7 border border-zinc-200/50 shadow-soft card-lift relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-zinc-300 to-zinc-400 rounded-t-2xl"></div>
+          <div class="flex items-start gap-4 mb-4">
+            <div>
+              <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase">Misi Kami</span>
+              <h3 class="text-base font-bold text-zinc-800 mt-0.5">Tiga Pilar Utama</h3>
+            </div>
+          </div>
+          <ol class="space-y-3">
+            <li class="flex items-start gap-3 text-sm text-zinc-500">
+              <span class="flex-shrink-0 w-5 h-5 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5">1</span>
+              Menyediakan materi hukum pernikahan Islam yang valid dan tervalidasi secara akademis serta syariat.
+            </li>
+            <li class="flex items-start gap-3 text-sm text-zinc-500">
+              <span class="flex-shrink-0 w-5 h-5 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5">2</span>
+              Mengintegrasikan hukum Islam dan hukum positif Indonesia dalam satu wadah informasi yang mudah diakses.
+            </li>
+            <li class="flex items-start gap-3 text-sm text-zinc-500">
+              <span class="flex-shrink-0 w-5 h-5 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5">3</span>
+              Memberikan edukasi pranikah yang mudah diakses guna meminimalisir risiko sengketa rumah tangga.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE 2 — DASAR HUKUM
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-dasar-hukum" class="page-section">
+
+    <!-- Header -->
+    <div class="mb-10 space-y-3">
+      <div class="flex items-center gap-3">
+        <div>
+          <h1 class="text-3xl font-bold text-zinc-800">Dasar Hukum Munakahat</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Fondasi syariat &amp; regulasi pernikahan Islam yang dipadukan dengan hukum positif Indonesia</p>
+        </div>
+      </div>
+      <div class="w-10 h-0.5 bg-amber-500 rounded-full"></div>
+    </div>
+
+    <div class="space-y-6">
+
+      <!-- Definisi -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift">
+        <div class="flex items-start gap-4">
+         
+          <div>
+            <h2 class="text-lg font-bold text-zinc-800 mb-2">Definisi Perkawinan</h2>
+            <p class="text-sm text-zinc-500 leading-relaxed">
+              <strong class="text-zinc-700">Munakahat</strong> berasal dari kata <em>An-Nikah</em> yang berarti menghimpun atau menyatukan. Secara syar'i, perkawinan adalah <strong class="text-amber-600">akad yang sangat kuat (mitsaqan ghalizha)</strong> untuk mentaati perintah Allah dan melaksanakannya merupakan nilai ibadah yang mulia — sebuah sunnah para nabi dan rasul sepanjang sejarah.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hukum Pernikahan Kondisional -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft">
+        <div class="flex items-center gap-3 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-zinc-800">Hukum Pernikahan (Kondisional)</h2>
+            <p class="text-xs text-zinc-400 mt-0.5">Hukum menikah berubah sesuai kondisi dan kemampuan seseorang</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+          <div class="bg-green-50 border border-green-100 rounded-xl p-4 flex flex-col items-start gap-2 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="wajib" class="h-7 w-7">
+            <p class="text-sm font-bold text-green-700">Wajib</p>
+            <p class="text-xs text-green-600 leading-relaxed">Takut terjerumus zina &amp; sudah mampu secara fisik dan finansial.</p>
+          </div>
+          <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex flex-col items-start gap-2 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="sunnah" class="h-7 w-7">
+            <p class="text-sm font-bold text-blue-700">Sunnah</p>
+            <p class="text-xs text-blue-600 leading-relaxed">Mampu secara fisik dan materi namun masih bisa menahan hawa nafsu.</p>
+          </div>
+          <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 flex flex-col items-start gap-2 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" alt="mubah" class="h-7 w-7">
+            <p class="text-sm font-bold text-zinc-700">Mubah</p>
+            <p class="text-xs text-zinc-500 leading-relaxed">Kondisi normal, tidak ada dorongan kuat maupun hambatan berarti.</p>
+          </div>
+          <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 flex flex-col items-start gap-2 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/595/595067.png" alt="makruh" class="h-7 w-7">
+            <p class="text-sm font-bold text-orange-700">Makruh</p>
+            <p class="text-xs text-orange-600 leading-relaxed">Mampu secara fisik namun belum mapan finansial dan emosional.</p>
+          </div>
+          <div class="bg-red-50 border border-red-100 rounded-xl p-4 flex flex-col items-start gap-2 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="haram" class="h-7 w-7">
+            <p class="text-sm font-bold text-red-700">Haram</p>
+            <p class="text-xs text-red-600 leading-relaxed">Jika niat menikah untuk mendzalimi, menyakiti, atau menganiaya pasangan.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Landasan Hukum Islam -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft">
+        <div class="flex items-center gap-3 mb-5">
+        
+          <h2 class="text-lg font-bold text-zinc-800">Landasan Hukum Islam</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="flex items-start gap-3 p-4 bg-amber-50/60 rounded-xl border border-amber-100">
+            <div class="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+            <div>
+              <p class="text-sm font-semibold text-zinc-800">QS. Ar-Rum: 21</p>
+              <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Landasan utama asas pernikahan: mencapai <em>sakinah, mawaddah wa rahmah</em> — ketenangan, cinta, dan kasih sayang dalam rumah tangga.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4 bg-amber-50/60 rounded-xl border border-amber-100">
+            <div class="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+            <div>
+              <p class="text-sm font-semibold text-zinc-800">QS. An-Nisa: 3</p>
+              <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Landasan asas keadilan dalam pernikahan dan pembatasan poligami secara ketat dengan syarat kemampuan berlaku adil.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4 bg-amber-50/60 rounded-xl border border-amber-100">
+            <div class="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+            <div>
+              <p class="text-sm font-semibold text-zinc-800">Hadis Nabi — Kemampuan (Baa'ah)</p>
+              <p class="text-xs text-zinc-500 mt-1 leading-relaxed">"Wahai para pemuda, barangsiapa di antara kalian yang telah mampu (baa'ah), maka hendaklah menikah…" (HR. Bukhari &amp; Muslim).</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4 bg-amber-50/60 rounded-xl border border-amber-100">
+            <div class="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+            <div>
+              <p class="text-sm font-semibold text-zinc-800">Kompilasi Hukum Islam (KHI)</p>
+              <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Regulasi resmi hukum Islam di Indonesia sebagai pedoman Pengadilan Agama dalam menyelesaikan perkara perkawinan, waris, dan hibah.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Asas Regulasi Indonesia -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft">
+        <div class="flex items-center gap-3 mb-5">
+          
+          <div>
+            <h2 class="text-lg font-bold text-zinc-800">Asas Regulasi di Indonesia</h2>
+            <p class="text-xs text-zinc-400 mt-0.5">Berdasarkan UU No. 16 Tahun 2019 tentang Perkawinan</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="text-center p-5 bg-zinc-50 rounded-xl border border-zinc-100 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/1256/1256650.png" alt="monogami" class="h-10 w-10 mx-auto mb-3">
+            <p class="text-sm font-bold text-zinc-700">Asas Monogami</p>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Poligami hanya diizinkan dengan syarat sangat ketat dan melalui izin Pengadilan Agama.</p>
+          </div>
+          <div class="text-center p-5 bg-zinc-50 rounded-xl border border-zinc-100 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/4043/4043782.png" alt="kesukarelaan" class="h-10 w-10 mx-auto mb-3">
+            <p class="text-sm font-bold text-zinc-700">Kesukarelaan</p>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Pernikahan didasarkan atas persetujuan bebas kedua calon mempelai tanpa paksaan pihak manapun.</p>
+          </div>
+          <div class="text-center p-5 bg-zinc-50 rounded-xl border border-zinc-100 card-lift">
+            <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="usia" class="h-10 w-10 mx-auto mb-3">
+            <p class="text-sm font-bold text-zinc-700">Batas Usia 19 Tahun</p>
+            <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Usia minimal 19 tahun berlaku untuk pria dan wanita sesuai UU No. 16 Tahun 2019.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE 3 — PRANIKAH & MAHRAM
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-pranikah" class="page-section">
+
+    <div class="mb-10 space-y-3">
+      <div class="flex items-center gap-3">
+        
+        <div>
+          <h1 class="text-3xl font-bold text-zinc-800">Pranikah &amp; Mahram</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Validasi larangan pernikahan dan tahapan penjajakan islami menuju pernikahan yang sah</p>
+        </div>
+      </div>
+      <div class="w-10 h-0.5 bg-amber-500 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Fase 1 -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2 mb-5">
+          <span class="bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">Fase 1</span>
+          <h2 class="text-base font-bold text-zinc-800">Validasi Larangan Nikah (Mahram)</h2>
+        </div>
+
+        <!-- Mahram Muabbad -->
+        <div class="bg-white rounded-2xl p-5 border border-zinc-200/50 shadow-soft card-lift">
+          <div class="flex items-start gap-3 mb-4">
+            <div class="bg-red-50 rounded-xl p-2.5 flex-shrink-0">
+              <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="" class="h-6 w-6">
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-zinc-800">Mahram Muabbad</h3>
+              <span class="text-xs text-red-500 font-medium">Dilarang Selamanya</span>
+            </div>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-xs text-zinc-500">
+              
+              <span><strong class="text-zinc-700">Nasab (Darah):</strong> Ibu, anak perempuan, saudara perempuan, bibi (dari ayah/ibu), dan keponakan perempuan.</span>
+            </li>
+            <li class="flex items-start gap-3 text-xs text-zinc-500">
+              
+              <span><strong class="text-zinc-700">Radha'ah (Sepersusuan):</strong> Wanita yang menyusui dan anak perempuan yang disusui bersama (saudara sepersusuan).</span>
+            </li>
+            <li class="flex items-start gap-3 text-xs text-zinc-500">
+              
+              <span><strong class="text-zinc-700">Mushaharah (Ipar/Mertua):</strong> Mertua, menantu, dan ibu tiri atau anak tiri dari pernikahan yang telah dikonsumsi.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Mahram Ghairu Muabbad -->
+        <div class="bg-white rounded-2xl p-5 border border-zinc-200/50 shadow-soft card-lift">
+          <div class="flex items-start gap-3 mb-4">
+            <div class="bg-orange-50 rounded-xl p-2.5 flex-shrink-0">
+              <img src="https://cdn-icons-png.flaticon.com/512/595/595067.png" alt="" class="h-6 w-6">
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-zinc-800">Mahram Ghairu Muabbad</h3>
+              <span class="text-xs text-orange-500 font-medium">Dilarang Sementara</span>
+            </div>
+          </div>
+          <ul class="space-y-2.5">
+            <li class="flex items-start gap-2 text-xs text-zinc-500">
+              <div class="w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+              Wanita yang masih berada dalam masa iddah (periode menunggu pasca cerai atau kematian suami).
+            </li>
+            <li class="flex items-start gap-2 text-xs text-zinc-500">
+              <div class="w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+              Memadu dua wanita bersaudara kandung (atau seorang wanita dengan bibinya) dalam satu ikatan pernikahan bersamaan.
+            </li>
+            <li class="flex items-start gap-2 text-xs text-zinc-500">
+              <div class="w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0 mt-1.5"></div>
+              Pernikahan beda agama: larangan mutlak menurut KHI dan Fatwa MUI yang berlaku di Indonesia.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2 mb-5">
+          <span class="bg-zinc-700 text-white text-xs font-bold px-3 py-1.5 rounded-full">Fase 2</span>
+          <h2 class="text-base font-bold text-zinc-800">Proses Penjajakan Islami</h2>
+        </div>
+
+        <!-- Ta'aruf -->
+        <div class="bg-white rounded-2xl p-5 border border-zinc-200/50 shadow-soft card-lift">
+          <div class="flex items-start gap-3">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-sm font-bold text-zinc-800">Ta'aruf &amp; Nazar</h3>
+                <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold">Tahap 1</span>
+              </div>
+              <p class="text-xs text-zinc-500 leading-relaxed pl-4">Saling mengenal melalui perantara pihak ketiga yang terpercaya tanpa <em>berkhalwat</em> (berduaan tanpa mahram). Pria diperbolehkan melihat wajah dan telapak tangan calon istri (<em>Nazar</em>) sebagai dasar pertimbangan yang sah, bukan nafsu.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khitbah -->
+        <div class="bg-white rounded-2xl p-5 border border-zinc-200/50 shadow-soft card-lift">
+          <div class="flex items-start gap-3">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-sm font-bold text-zinc-800">Khitbah (Lamaran)</h3>
+                <span class="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-semibold">Tahap 2</span>
+              </div>
+              <p class="text-xs text-zinc-500 leading-relaxed pl-4">Pernyataan komitmen resmi dari pihak pria untuk menikahi wanita. <strong class="text-zinc-700">Penting:</strong> Khitbah belum menghalalkan pergaulan bebas — keduanya masih berstatus <em>ajnabi</em> (orang asing secara hukum) hingga akad nikah dilangsungkan.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Walimah -->
+        <div class="bg-white rounded-2xl p-5 border border-zinc-200/50 shadow-soft card-lift">
+          <div class="flex items-start gap-3">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-sm font-bold text-zinc-800">Walimatul 'Ursy</h3>
+                <span class="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded-full font-semibold">Tahap 3</span>
+              </div>
+              <p class="text-xs text-zinc-500 leading-relaxed pl-4">Resepsi pernikahan yang hukumnya <strong class="text-zinc-700">Sunnah Muakkadah</strong> (sangat dianjurkan) sebagai pengumuman resmi (<em>I'lan</em>) pernikahan kepada masyarakat agar terhindar dari fitnah. Wajib diselenggarakan secara sederhana tanpa pemborosan dan kemewahan berlebihan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE 4 — PANDUAN NIKAH
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-panduan" class="page-section">
+
+    <div class="mb-10 space-y-3">
+      <div class="flex items-center gap-3">
+        <div>
+          <h1 class="text-3xl font-bold text-zinc-800">Panduan Nikah Lengkap</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Rukun, syarat, mahar, dan hak-kewajiban pasutri berdasarkan fiqih Islam &amp; hukum Indonesia</p>
+        </div>
+      </div>
+      <div class="w-10 h-0.5 bg-amber-500 rounded-full"></div>
+    </div>
+
+    <div class="space-y-10">
+
+      <!-- Fase 1: Rukun Nikah -->
+      <div>
+        <div class="flex items-center gap-2 mb-6">
+          <span class="bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">Fase 1</span>
+          <h2 class="text-xl font-bold text-zinc-800">Lima Rukun Nikah (Syarat Sah)</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            <div class="bg-white rounded-2xl p-5 border border-amber-100/70 shadow-soft card-lift relative overflow-hidden">
+                <span class="absolute top-3 right-3 text-5xl font-black text-amber-100 leading-none select-none">1</span>
+
+                <div class="flex items-start gap-4">
+                    <!-- Gambar -->
+                    <img src="2mempelai.jpg"
+                        alt="Mempelai"
+                        class="w-24 aspect-[5/4] object-cover rounded-xl flex-shrink-0">
+
+                    <!-- Teks -->
+                    <div>
+                        <h3 class="text-sm font-bold text-zinc-800">
+                            Mempelai Pria &amp; Wanita
+                        </h3>
+
+                        <p class="text-xs text-zinc-500 mt-2 leading-relaxed">
+                            Bebas dari halangan mahram, berakal, baligh, dan tidak dalam keadaan paksaan dari pihak manapun.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 border border-amber-100/70 shadow-soft card-lift relative overflow-hidden">
+                <span class="absolute top-3 right-3 text-5xl font-black text-amber-100 leading-none select-none">2</span>
+
+                <div class="flex items-start gap-4">
+                    <!-- Gambar -->
+                    <img src="walinikah.jpg"
+                        alt="wali nikah"
+                        class="w-24 aspect-[5/4] object-cover rounded-xl flex-shrink-0">
+
+                    <!-- Teks -->
+                    <div>
+                        <h3 class="text-sm font-bold text-zinc-800">
+                            Wali Nikah
+                        </h3>
+
+                        <p class="text-xs text-zinc-500 mt-2 leading-relaxed">
+                            Ayah kandung sebagai wali utama, lalu urutan wali nasab. Jika tidak ada, menggunakan Wali Hakim dari Pengadilan Agama.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 border border-amber-100/70 shadow-soft card-lift relative overflow-hidden">
+                <span class="absolute top-3 right-3 text-5xl font-black text-amber-100 leading-none select-none">3</span>
+
+                <div class="flex items-start gap-4">
+                    <!-- Gambar -->
+                    <img src="saksi.jpg"
+                        alt="saksi"
+                        class="w-24 aspect-[5/4] object-cover rounded-xl flex-shrink-0">
+
+                    <!-- Teks -->
+                    <div>
+                        <h3 class="text-sm font-bold text-zinc-800">
+                            Dua Saksi Pria
+                        </h3>
+
+                        <p class="text-xs text-zinc-500 mt-2 leading-relaxed">
+                            Muslim, adil, baligh, dan berakal. Wajib menyaksikan langsung pengucapan ijab qabul dalam satu majelis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 border border-amber-100/70 shadow-soft card-lift relative overflow-hidden">
+                <span class="absolute top-3 right-3 text-5xl font-black text-amber-100 leading-none select-none">4</span>
+
+                <div class="flex items-start gap-4">
+                    <!-- Gambar -->
+                    <img src="ijab.jpg"
+                        alt="ijab qabul"
+                        class="w-24 aspect-[5/4] object-cover rounded-xl flex-shrink-0">
+
+                    <!-- Teks -->
+                    <div>
+                        <h3 class="text-sm font-bold text-zinc-800">
+                            Ijab &amp; Qabul
+                        </h3>
+
+                        <p class="text-xs text-zinc-500 mt-2 leading-relaxed">
+                            Diucapkan dalam satu majelis tanpa jeda yang merusak makna. Ijab dari wali nikah, qabul dari mempelai pria.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Fase 2: Mahar -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 rounded-2xl p-7 border border-amber-100">
+        <div class="flex items-center gap-2 mb-5">
+          <span class="bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">Fase 2</span>
+          <h2 class="text-xl font-bold text-zinc-800">Mahar (Mas Kawin)</h2>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-6 items-start">
+          <div class="flex-shrink-0 bg-white rounded-2xl p-5 shadow-soft self-start">
+            <img src="cincin.png" alt="mahar" class="h-16 w-16">
+          </div>
+          <div class="space-y-4 flex-1">
+            <p class="text-sm text-zinc-600 leading-relaxed">
+              Mahar adalah <strong class="text-amber-700">hak mutlak pengantin wanita</strong> yang wajib dipenuhi oleh pihak pria sebagai bagian dari syarat sahnya pernikahan. Bentuk dan nilainya disepakati bersama antara kedua pihak.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="bg-white rounded-xl px-4 py-3.5 border border-amber-100">
+                <p class="text-xs font-bold text-zinc-700">Prinsip Mahar</p>
+                <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Tidak memberatkan pria secara berlebihan namun tidak boleh meremehkan martabat dan kedudukan wanita.</p>
+              </div>
+              <div class="bg-white rounded-xl px-4 py-3.5 border border-amber-100">
+                <p class="text-xs font-bold text-zinc-700">Boleh Ditangguhkan</p>
+                <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Mahar boleh dibayar kemudian (diutangkan) jika disetujui calon istri dan disebutkan jelas saat ijab qabul berlangsung.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fase 3: Hak & Kewajiban -->
+      <div>
+        <div class="flex items-center gap-2 mb-6">
+          <span class="bg-zinc-700 text-white text-xs font-bold px-3 py-1.5 rounded-full">Fase 3</span>
+          <h2 class="text-xl font-bold text-zinc-800">Hak &amp; Kewajiban Pasutri</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <!-- Suami -->
+          <div class="bg-white rounded-2xl p-5 border border-blue-100 shadow-soft card-lift">
+            <div class="flex items-center gap-3 mb-4">
+              
+              <h3 class="text-sm font-bold text-zinc-800">Kewajiban Suami</h3>
+            </div>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Memberikan nafkah lahir: pangan, sandang, dan papan yang layak sesuai kemampuan.
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Memberikan nafkah batin (kebutuhan biologis) secara adil dan penuh martabat.
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Membimbing dan mendidik istri dalam urusan agama dan kehidupan rumah tangga.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Istri -->
+          <div class="bg-white rounded-2xl p-5 border border-pink-100 shadow-soft card-lift">
+            <div class="flex items-center gap-3 mb-4">
+              
+              <h3 class="text-sm font-bold text-zinc-800">Kewajiban Istri</h3>
+            </div>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-pink-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Menaati suami dalam perkara yang tidak bertentangan dengan syariat Allah SWT.
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-pink-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Menjaga kehormatan diri, keluarga, dan harta suami saat suami tidak berada di rumah.
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-pink-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Mengelola urusan rumah tangga dengan baik, penuh tanggung jawab, dan bijaksana.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Harta -->
+          <div class="bg-white rounded-2xl p-5 border border-green-100 shadow-soft card-lift">
+            <div class="flex items-center gap-3 mb-4">
+              
+              <h3 class="text-sm font-bold text-zinc-800">Harta dalam Pernikahan</h3>
+            </div>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-green-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Istri memiliki hak penuh atas seluruh harta bawaannya sebelum menikah.
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-green-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Harta yang didapat bersama setelah akad nikah menjadi Harta Bersama (Gono-gini).
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-zinc-500">
+                <div class="w-1.5 h-1.5 bg-green-400 rounded-full flex-shrink-0 mt-1.5"></div>
+                Pembagian harta bersama diatur melalui musyawarah atau putusan Pengadilan Agama.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+   <!-- ══════════════════════════════════════════════════════════
+       PAGE 5 — ARTIKEL
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-artikel" class="page-section">
+ 
+    <div class="mb-10 space-y-3">
+      <div class="flex items-center gap-3">
+        
+        <div>
+          <h1 class="text-3xl font-bold text-zinc-800">Artikel &amp; Riset</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Kumpulan tulisan akademis dan analisis mendalam seputar Fiqih Munakahat</p>
+        </div>
+      </div>
+      <div class="w-10 h-0.5 bg-amber-500 rounded-full"></div>
+    </div>
+ 
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+ 
+      <!-- Article 1 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 01</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Kontekstualisasi Fiqih Munakahat di Era Digital bagi Gen Z</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Kajian tentang adaptasi hukum pernikahan Islam dalam menghadapi tantangan budaya digital dan perubahan gaya hidup generasi muda masa kini.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Fiqih Kontemporer</span>
+          <button onclick="openArticle(1)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 2 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+
+          <span class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 02</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Kedudukan KHI dan UU Perkawinan dalam Menjamin Hak-Hak Perempuan</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Analisis yuridis tentang sejauh mana regulasi hukum positif Indonesia berhasil melindungi dan menjamin hak-hak fundamental kaum perempuan dalam perkawinan.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Hukum Positif</span>
+          <button onclick="openArticle(2)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 3 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          
+          <span class="text-[10px] font-bold text-green-600 bg-green-50 border border-green-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 03</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Bedah Masalah Wali Hakim dan Wali Adhal (Wali yang Enggan Menikahkan)</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Pembahasan mendalam tentang mekanisme perpindahan wali nikah dari wali nasab kepada wali hakim beserta implikasi hukumnya di Indonesia.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Wali Nikah</span>
+          <button onclick="openArticle(3)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 4 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          
+          <span class="text-[10px] font-bold text-orange-600 bg-orange-50 border border-orange-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 04</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Poligami dalam Hukum Islam dan Hukum Positif Indonesia</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Kajian komparatif antara ketentuan poligami dalam fikih klasik dengan regulasi ketat yang diterapkan oleh Undang-Undang Perkawinan Indonesia.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Perkawinan</span>
+          <button onclick="openArticle(4)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 5 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          
+          <span class="text-[10px] font-bold text-purple-600 bg-purple-50 border border-purple-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 05</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Eksplorasi Perjanjian Pranikah (Pre-Nuptial Agreement) Perspektif Syariah</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Telaah tentang keabsahan dan batasan perjanjian pranikah menurut hukum Islam serta implementasinya dalam sistem hukum keluarga di Indonesia.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Perjanjian</span>
+          <button onclick="openArticle(5)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 6 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          
+          <span class="text-[10px] font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 06</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Aspek Hukum Nikah Siri dan Dampak Yuridisnya di Mata Negara</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Penelusuran status hukum pernikahan tidak tercatat (nikah siri) beserta akibat hukumnya terhadap hak-hak anak, warisan, dan perlindungan perempuan.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Nikah Siri</span>
+          <button onclick="openArticle(6)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 7 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          
+          <span class="text-[10px] font-bold text-teal-600 bg-teal-50 border border-teal-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 07</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Kriteria Memilih Pasangan Hidup Ideal Berdasarkan Asas Kafa'ah (Kesetaraan)</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Pembahasan konsep <em>kafa'ah</em> dalam Islam sebagai tolok ukur kesepadanan calon pasangan hidup dan relevansinya dalam kehidupan modern.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Pranikah</span>
+          <button onclick="openArticle(7)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+ 
+      <!-- Article 8 -->
+      <div class="bg-white rounded-2xl p-6 border border-zinc-200/50 shadow-soft card-lift flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          
+          <span class="text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-100 px-2 py-1 rounded-full uppercase tracking-wider mt-0.5">Artikel 08</span>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-bold text-zinc-800 leading-snug mb-2">Manajemen Konflik Rumah Tangga: Konsep Nusyuz dan Langkah Mediasi</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">Panduan komprehensif tentang konsep <em>nusyuz</em> dalam Islam dan strategi mediasi berbasis Al-Qur'an untuk menyelesaikan konflik rumah tangga secara damai.</p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+          <span class="text-[10px] text-zinc-400 font-medium">Rumah Tangga</span>
+          <button onclick="openArticle(8)" class="text-[10px] text-amber-600 font-semibold cursor-pointer hover:underline bg-transparent border-0 p-0">Baca →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE 6 — FAQ
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-faq" class="page-section">
+
+    <div class="mb-10 space-y-3">
+      <div class="flex items-center gap-3">
+        
+        <div>
+          <h1 class="text-3xl font-bold text-zinc-800">Pertanyaan Umum (FAQ)</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Jawaban atas pertanyaan yang paling sering diajukan seputar pernikahan Islam</p>
+        </div>
+      </div>
+      <div class="w-10 h-0.5 bg-amber-500 rounded-full"></div>
+    </div>
+
+    <div class="max-w-3xl space-y-3">
+
+      <!-- FAQ 1 -->
+      <details class="bg-white rounded-2xl border border-zinc-200/50 shadow-soft overflow-hidden group">
+        <summary class="flex items-center gap-4 px-6 py-5 text-sm font-semibold text-zinc-700 hover:text-amber-600 transition-colors">
+          
+          <span class="flex-1">Apakah sah menikah tanpa wali dari pihak wanita?</span>
+          <svg class="faq-arrow h-4 w-4 text-zinc-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-6 pb-5 pt-1">
+          <div class="flex items-start gap-3 p-4 bg-red-50/60 rounded-xl border border-red-100">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="" class="h-5 w-5 flex-shrink-0 mt-0.5">
+            <p class="text-sm text-zinc-600 leading-relaxed">
+              <strong class="text-red-600">Tidak sah.</strong> Wali nikah adalah <strong class="text-zinc-700">rukun nikah yang wajib</strong> dan tidak dapat diabaikan. Pernikahan tanpa wali yang sah hukumnya batal menurut jumhur ulama. Apabila wali nasab tidak ada atau menolak (adhal), maka wewenang berpindah kepada <em>Wali Hakim</em> yang ditunjuk Pengadilan Agama.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- FAQ 2 -->
+      <details class="bg-white rounded-2xl border border-zinc-200/50 shadow-soft overflow-hidden">
+        <summary class="flex items-center gap-4 px-6 py-5 text-sm font-semibold text-zinc-700 hover:text-amber-600 transition-colors">
+          
+          <span class="flex-1">Berapa batas usia minimal menikah di Indonesia?</span>
+          <svg class="faq-arrow h-4 w-4 text-zinc-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-6 pb-5 pt-1">
+          <div class="flex items-start gap-3 p-4 bg-blue-50/60 rounded-xl border border-blue-100">
+            <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="" class="h-5 w-5 flex-shrink-0 mt-0.5">
+            <p class="text-sm text-zinc-600 leading-relaxed">
+              Berdasarkan <strong class="text-zinc-700">UU No. 16 Tahun 2019</strong> tentang Perubahan atas UU No. 1 Tahun 1974 tentang Perkawinan, batas usia minimal menikah adalah <strong class="text-blue-600">19 tahun</strong>, berlaku sama untuk pria maupun wanita. Pernikahan di bawah usia tersebut hanya dapat dilakukan dengan dispensasi dari Pengadilan Agama.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- FAQ 3 -->
+      <details class="bg-white rounded-2xl border border-zinc-200/50 shadow-soft overflow-hidden">
+        <summary class="flex items-center gap-4 px-6 py-5 text-sm font-semibold text-zinc-700 hover:text-amber-600 transition-colors">
+          
+          <span class="flex-1">Apakah mahar boleh diutang atau ditangguhkan?</span>
+          <svg class="faq-arrow h-4 w-4 text-zinc-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-6 pb-5 pt-1">
+          <div class="flex items-start gap-3 p-4 bg-green-50/60 rounded-xl border border-green-100">
+            <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="" class="h-5 w-5 flex-shrink-0 mt-0.5">
+            <p class="text-sm text-zinc-600 leading-relaxed">
+              <strong class="text-green-600">Boleh,</strong> dengan dua syarat: (1) <strong class="text-zinc-700">disetujui oleh calon istri</strong> secara sukarela tanpa paksaan, dan (2) jumlah serta tenggat waktu pembayaran <strong class="text-zinc-700">disebutkan dengan jelas saat ijab qabul</strong> berlangsung. Mahar yang diutangkan tetap menjadi tanggungan suami dan wajib dilunasi.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- FAQ 4 -->
+      <details class="bg-white rounded-2xl border border-zinc-200/50 shadow-soft overflow-hidden">
+        <summary class="flex items-center gap-4 px-6 py-5 text-sm font-semibold text-zinc-700 hover:text-amber-600 transition-colors">
+          
+          <span class="flex-1">Apakah sah pernikahan beda agama di Indonesia?</span>
+          <svg class="faq-arrow h-4 w-4 text-zinc-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-6 pb-5 pt-1">
+          <div class="flex items-start gap-3 p-4 bg-red-50/60 rounded-xl border border-red-100">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="" class="h-5 w-5 flex-shrink-0 mt-0.5">
+            <p class="text-sm text-zinc-600 leading-relaxed">
+              <strong class="text-red-600">Tidak sah.</strong> Menurut <strong class="text-zinc-700">Kompilasi Hukum Islam (KHI) Pasal 40 dan 44</strong>, serta <strong class="text-zinc-700">Fatwa MUI Tahun 2005</strong>, pernikahan antara seorang Muslim dengan non-Muslim hukumnya <em>haram</em> dan batal. Hal ini juga selaras dengan QS. Al-Baqarah: 221 yang melarang kaum muslimin menikahi kaum musyrikin.
+            </p>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE 7 — PROFIL
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="page-profil" class="page-section">
+
+    <div class="mb-10 space-y-3">
+      <div class="flex items-center gap-3">
+        
+        <div>
+          <h1 class="text-3xl font-bold text-zinc-800">Profil</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Informasi mahasiswa pengembang portal edukasi ini</p>
+        </div>
+      </div>
+      <div class="w-10 h-0.5 bg-amber-500 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+     <div class="lg:col-span-2 flex justify-center">
+
+    <div class="relative w-full max-w-[446px] h-[636px]
+                rounded-[32px] overflow-hidden
+                border-white shadow-2xl">
+
+       <!-- Foto -->
+        <img
+            src="profil.jpeg"
+            class="absolute inset-0 w-full h-full object-cover">
+
+
+        <!-- Gradient -->
+        <div
+            class="absolute bottom-0 left-0 w-full h-[50%] bg-zinc-500/60 rounded-t-3xl">
+        </div>
+
+        <!-- Content -->
+        <div class="absolute bottom-8 left-7 right-7 text-white text-center z-20">
+
+            <h2 class="text-[32px] font-bold mb-7">
+                Dwita Anjassari
+            </h2>
+
+            <div class="space-y-5">
+
+                <div>
+                    <p class="text-xs text-white/70">
+                        Program Studi :
+                    </p>
+
+                    <p class="text-lg font-semibold">
+                        S1 Hukum Keluarga Islam
+                    </p>
+                </div>
+
+                <div>
+                    <p class="text-xs text-white/70">
+                        Institusi :
+                    </p>
+
+                    <a href="https://kampusmelayu.ac.id/"
+                        target="_blank"
+                        class="text-lg font-semibold hover:underline">
+                        IAIN Datuk Laksemana Bengkalis
+                    </a>
+                </div>
+
+                <div>
+                    <p class="text-xs text-white/70">
+                        Fokus Riset :
+                    </p>
+
+                    <p class="text-lg font-semibold">
+                        Fiqih Munakahat
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+        <div class="lg:col-span-3 space-y-6">
+
+        <!-- Maps -->
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+
+            <div class="px-6 py-5 border-b">
+
+                <div class="flex items-center gap-3">
+
+                    <img src="logo iain.jpg" class="w-10 h-10 rounded-lg">
+
+                    <div>
+
+                        <h3 class="font-bold text-lg">
+                            Lokasi Kampus
+                        </h3>
+
+                        <p class="text-zinc-500 text-sm">
+                            IAIN Datuk Laksemana Bengkalis
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <iframe
+                class="w-full h-[390px]"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1953.891174169454!2d102.13327195928164!3d1.4869972620097995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d1610054864a1f%3A0x46724ddc15184493!2sIAIN%20DATUK%20LAKSEMANA%20BENGKALIS!5e0!3m2!1sid!2sid!4v1782528596834!5m2!1sid!2sid"
+                loading="lazy">
+            </iframe>
+
+        </div>
+
+        <!-- Hubungi Saya -->
+        <div>
+
+            <h3 class="text-center text-2xl font-semibold mb-5">
+                Hubungi Saya
+            </h3>
+
+            <a
+                href="https://www.instagram.com/saya_biru08/?utm_source=ig_web_button_share_sheet"
+                class="flex items-center justify-center gap-4
+                
+                rounded-3xl
+                py-5
+                hover:border-amber-200
+                hover:border-1
+                transition">
+
+                <img src="Instagram.png" class="w-8">
+
+                <span class="text-lg font-medium">
+                    Instagram
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+         
+  </section>
+
+    <!-- ============================================================
+        ARTICLE MODAL POPUP
+    ============================================================ -->
+    <div id="article-modal" role="dialog" aria-modal="true" aria-labelledby="modal-article-title" onclick="handleModalBackdropClick(event)">
+    <div class="modal-card" id="modal-card">
+    
+        <!-- Gold accent bar -->
+        <div class="h-1.5 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-600 rounded-t-2xl"></div>
+    
+        <!-- Modal Header -->
+        <div class="px-7 pt-6 pb-5 border-b border-zinc-100 bg-white sticky top-0 z-10">
+        <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+
+                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span id="modal-label"
+                        class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border">
+                    </span>
+
+                    <span id="modal-category"
+                        class="text-[10px] text-zinc-400 font-medium">
+                    </span>
+
+                    <span class="text-[10px] text-zinc-300">·</span>
+
+                    <span id="modal-readtime"
+                        class="text-[10px] text-zinc-400">
+                    </span>
+                </div>
+
+                <h2 id="modal-article-title"
+                    class="text-base font-bold text-zinc-800 leading-snug">
+                </h2>
+
+            </div>
+            <button onclick="closeArticleModal()" class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-100 transition-colors text-zinc-400 hover:text-zinc-700" aria-label="Tutup">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        </div>
+    
+        <!-- Modal Body (scrollable) -->
+        <div class="px-7 py-6 overflow-y-auto" id="modal-body" style="max-height:62vh;scrollbar-width:thin;scrollbar-color:#D4AF37 #f4f4f5;">
+        <div id="modal-content" class="article-body"></div>
+        </div>
+    
+        <!-- Modal Footer -->
+        <div class="px-7 py-4 border-t border-zinc-100 flex items-center justify-between bg-zinc-50/80 rounded-b-2xl">
+        <div class="flex items-center gap-2">
+            
+            <span class="text-[10px] text-zinc-400 font-medium">Fiqih Munakahat Digital · IAIN Datuk Laksemana Bengkalis</span>
+        </div>
+        <button onclick="closeArticleModal()" class="text-xs font-semibold text-amber-600 hover:text-amber-700 transition-colors">Tutup ✕</button>
+        </div>
+    </div>
+    </div>
+
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="border-t border-zinc-200/60 bg-white/60 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5">
+      <p class="text-xs text-zinc-400">© 2026 Fiqih Munakahat Digital — Dwita Anjassari</p>
+    </div>
+    <p class="text-xs text-zinc-400">
+      <a href="https://iainbengkalis.ac.id/" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:underline font-semibold">Hukum Keluarga Islam</a>
+      · IAIN Datuk Laksemana Bengkalis
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* ═══════════════════════════════════════════════════════════
+     ARTICLE DATA — Full content for all 8 articles
+  ═══════════════════════════════════════════════════════════ */
+  const ARTICLES = {
+    1: {
+      label: 'Artikel 01', labelClass: 'text-amber-600 bg-amber-50 border-amber-200',
+      category: 'Fiqih Kontemporer', readtime: '6 menit baca',
+      title: 'Kontekstualisasi Fiqih Munakahat di Era Digital bagi Gen Z',
+      body: `
+        <p>Era digital telah mengubah cara pandang generasi muda (Gen Z) tentang seluruh aspek kehidupan, termasuk pernikahan. Media sosial, platform streaming, dan aplikasi kencan memunculkan persepsi baru tentang hubungan asmara yang tidak selalu selaras dengan nilai-nilai Islam. Di sinilah <strong>kontekstualisasi fiqih munakahat</strong> menjadi sangat mendesak dan relevan.</p>
+ 
+        <h2>Tantangan Era Digital terhadap Nilai Pernikahan Islam</h2>
+        <p>Generasi Z tumbuh dalam ekosistem digital yang sarat dengan konten yang mempengaruhi pandangan mereka tentang cinta dan pernikahan. Beberapa tantangan utama yang dihadapi:</p>
+        <ul>
+          <li><strong>Standar pernikahan yang materialistik</strong> — media sosial menciptakan ilusi bahwa pernikahan yang sah adalah yang viral dan mewah.</li>
+          <li><strong>Budaya <em>free dating</em></strong> yang berasal dari Barat semakin diadopsi tanpa filter nilai-nilai Islam.</li>
+          <li><strong>Berkurangnya peran keluarga</strong> dalam proses pemilihan pasangan karena individu lebih percaya pada algoritma aplikasi kencan.</li>
+          <li><strong>Maraknya konten negatif</strong> yang merusak persepsi tentang hubungan suami-istri yang sesungguhnya.</li>
+          <li><strong>Khalwat digital</strong> — berduaan di ruang privat media sosial tanpa mahram, yang hukumnya sama dengan khalwat fisik.</li>
+        </ul>
+ 
+        <h2>Respons Fiqih Munakahat terhadap Tantangan Digital</h2>
+        <p>Para ulama kontemporer tidak melarang penggunaan teknologi secara mutlak dalam proses penjajakan dan pernikahan. Yang menjadi batasan adalah tetap menjaga nilai-nilai syariat:</p>
+        <ul>
+          <li>Ta'aruf digital harus tetap melibatkan wali atau mediator yang terpercaya.</li>
+          <li>Komunikasi pra-nikah harus dihindari dari sifat intim dan berlebihan.</li>
+          <li>Profil diri yang ditampilkan harus jujur dan tidak dimanipulasi.</li>
+          <li>Proses pengenalan calon pasangan tetap mengikuti adab-adab islami.</li>
+        </ul>
+ 
+        <blockquote>
+          <p>"Dan janganlah kamu mendekati zina; sesungguhnya zina itu adalah suatu perbuatan yang keji. Dan suatu jalan yang buruk."</p>
+          <cite>— QS. Al-Isra': 32</cite>
+        </blockquote>
+ 
+        <h2>Ta'aruf Modern yang Tetap Syar'i</h2>
+        <p>Beberapa platform ta'aruf islami kini telah hadir untuk memfasilitasi perkenalan yang aman, terstruktur, dan bermahram. Prosesnya biasanya melibatkan:</p>
+        <ol>
+          <li>Pengajuan profil yang diverifikasi oleh tim atau wali.</li>
+          <li>Komunikasi awal melalui perantara terstruktur, bukan langsung berduaan.</li>
+          <li>Keterlibatan wali dari sejak awal proses perkenalan.</li>
+          <li>Pertemuan langsung hanya dalam pengawasan mahram.</li>
+        </ol>
+ 
+        <h2>Peran Literasi Digital Islami</h2>
+        <p>Tantangan terbesar bukan hanya pada perilaku Gen Z, tetapi juga pada ketersediaan konten islami yang relevan dan menarik bagi mereka. Portal-portal edukasi fiqih munakahat digital seperti ini hadir untuk menjawab kebutuhan literasi tersebut.</p>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Gen Z dapat memanfaatkan teknologi digital untuk mempersiapkan diri menikah dengan lebih baik — dengan mempelajari fiqih munakahat secara daring, mengikuti kelas pranikah virtual, dan menggunakan platform ta'aruf yang syar'i. Kuncinya adalah teknologi sebagai alat, bukan tujuan.</p>
+        </div>
+      `
+    },
+    2: {
+      label: 'Artikel 02', labelClass: 'text-blue-600 bg-blue-50 border-blue-200',
+      category: 'Hukum Positif', readtime: '7 menit baca',
+
+      title: 'Kedudukan KHI dan UU Perkawinan dalam Menjamin Hak-Hak Perempuan',
+      body: `
+        <p>Kehadiran <strong>Kompilasi Hukum Islam (KHI) Tahun 1991</strong> dan <strong>UU No. 1 Tahun 1974 jo. UU No. 16 Tahun 2019</strong> tentang Perkawinan merupakan tonggak penting dalam memberikan perlindungan hukum komprehensif bagi perempuan Indonesia dalam konteks pernikahan dan kehidupan berkeluarga.</p>
+ 
+        <h2>Hak-Hak Perempuan yang Dijamin KHI</h2>
+        <p>KHI secara eksplisit mengatur sejumlah hak fundamental perempuan dalam perkawinan yang tidak boleh diabaikan oleh pihak manapun:</p>
+        <ul>
+          <li><strong>Hak mahar (mas kawin)</strong> sebagai hak eksklusif istri yang tidak boleh diminta kembali.</li>
+          <li><strong>Hak nafkah lahir dan batin</strong> yang memadai sesuai kemampuan suami.</li>
+          <li><strong>Hak menolak pernikahan paksa</strong> — persetujuan calon istri adalah syarat sah pernikahan.</li>
+          <li><strong>Hak cerai gugat (khuluk)</strong> apabila istri tidak dapat mempertahankan pernikahan.</li>
+          <li><strong>Hak nafkah 'iddah</strong> pasca perceraian selama masa tunggu berlangsung.</li>
+          <li><strong>Hak atas harta bersama (gono-gini)</strong> yang diperoleh selama pernikahan.</li>
+          <li><strong>Hak hadhanah</strong> (pengasuhan anak) terutama untuk anak yang belum mumayyiz.</li>
+        </ul>
+ 
+        <h2>Dampak Signifikan UU No. 16 Tahun 2019</h2>
+        <p>Perubahan paling revolusioner yang dibawa UU ini adalah penyamaan batas usia minimal menikah menjadi <strong>19 tahun untuk pria dan wanita</strong>. Sebelumnya, batas usia wanita hanya 16 tahun — sebuah ketimpangan yang berpotensi melanggengkan pernikahan anak.</p>
+        <ul>
+          <li>Penyamaan batas usia menghapus diskriminasi gender dalam regulasi perkawinan.</li>
+          <li>Memberikan waktu lebih bagi perempuan untuk mendapatkan pendidikan yang memadai.</li>
+          <li>Melindungi kesehatan reproduksi perempuan muda.</li>
+        </ul>
+ 
+        <blockquote>
+          <p>"Perlakukanlah para wanita dengan baik, karena sesungguhnya mereka adalah teman hidupmu dan kalian memiliki hak atas mereka sebagaimana mereka memiliki hak atas kalian."</p>
+          <cite>— HR. Tirmidzi</cite>
+        </blockquote>
+ 
+        <h2>Celah Hukum yang Masih Perlu Perbaikan</h2>
+        <p>Meskipun regulasi yang ada sudah cukup kuat, beberapa isu masih menjadi perhatian serius dalam implementasinya di lapangan:</p>
+        <ul>
+          <li>Masih tingginya angka <strong>dispensasi nikah</strong> yang diberikan Pengadilan Agama di berbagai daerah.</li>
+          <li>Lemahnya penegakan hukum terhadap <strong>pernikahan sirri</strong> yang merugikan pihak perempuan.</li>
+          <li>Ketidakjelasan implementasi sanksi bagi praktik <strong>poligami liar</strong> tanpa izin pengadilan.</li>
+          <li>Rendahnya literasi hukum masyarakat, terutama di daerah pedesaan.</li>
+        </ul>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> KHI dan UU Perkawinan telah menyediakan kerangka perlindungan yang komprehensif bagi perempuan. Namun efektivitasnya sangat bergantung pada tingkat literasi hukum masyarakat dan konsistensi penegakan oleh aparat penegak hukum dan lembaga keagamaan.</p>
+        </div>
+      `
+    },
+    3: {
+      label: 'Artikel 03', labelClass: 'text-green-600 bg-green-50 border-green-200',
+      category: 'Wali Nikah', readtime: '6 menit baca',
+
+      title: 'Bedah Masalah Wali Hakim dan Wali Adhal (Wali yang Enggan Menikahkan)',
+      body: `
+        <p>Salah satu isu krusial dalam pernikahan Islam adalah ketika seorang wali menolak menikahkan perempuan yang berada di bawah perwaliannya tanpa alasan yang dibenarkan syariat. Kondisi ini dikenal sebagai <strong><em>wali adhal</em></strong>, dan Islam menyediakan solusi yang bijaksana melalui institusi <strong>wali hakim</strong>.</p>
+ 
+        <h2>Urutan Wali Nasab dalam Fiqih Islam</h2>
+        <p>Sebelum membahas wali hakim, penting untuk memahami urutan wali nasab yang berlaku dalam fikih Islam:</p>
+        <ol>
+          <li>Ayah kandung (wali utama dan paling berhak)</li>
+          <li>Kakek dari pihak ayah, dan seterusnya ke atas</li>
+          <li>Saudara laki-laki kandung (seayah-seibu)</li>
+          <li>Saudara laki-laki seayah</li>
+          <li>Keponakan laki-laki dari saudara kandung</li>
+          <li>Paman (saudara laki-laki ayah) kandung</li>
+          <li>Anak laki-laki paman kandung</li>
+        </ol>
+ 
+        <h2>Pengertian Wali Adhal</h2>
+        <p><em>Adhal</em> berarti enggan atau menolak. Wali adhal adalah wali yang menolak menikahkan perempuan di bawah perwaliannya <strong>tanpa alasan yang dibenarkan syariat</strong>. Penolakan yang termasuk adhal:</p>
+        <ul>
+          <li>Menolak karena tidak menyukai calon tanpa alasan syar'i (hanya selera pribadi).</li>
+          <li>Menolak karena meminta mahar yang sangat tinggi untuk kepentingan diri sendiri.</li>
+          <li>Menolak karena konflik keluarga yang tidak berkaitan dengan kepentingan sang perempuan.</li>
+        </ul>
+        <p>Adapun penolakan yang <strong>tidak termasuk adhal</strong> (alasan yang dapat diterima): calon suami tidak sekufu dalam agama, ada indikasi calon suami akan mendzalimi, atau calon suami diketahui memiliki perilaku buruk.</p>
+ 
+        <blockquote>
+          <p>"Perempuan mana saja yang menikah tanpa izin walinya, maka pernikahannya batal — batal — batal."</p>
+          <cite>— HR. Abu Dawud, Tirmidzi, dan Ibnu Majah</cite>
+        </blockquote>
+ 
+        <h2>Prosedur Penetapan Wali Hakim di Indonesia</h2>
+        <p>Mekanisme resmi yang berlaku di Indonesia berdasarkan PMA No. 30 Tahun 2005:</p>
+        <ol>
+          <li>Perempuan mengajukan <strong>permohonan tertulis</strong> ke Pengadilan Agama setempat.</li>
+          <li>PA memeriksa dan mendengar alasan wali yang menolak.</li>
+          <li>Jika wali terbukti <em>adhal</em>, PA mengeluarkan <strong>penetapan (beschikking)</strong>.</li>
+          <li>Berdasarkan penetapan PA, <strong>Kepala KUA setempat</strong> bertindak sebagai wali hakim.</li>
+          <li>Pernikahan dilaksanakan dengan wali hakim sesuai ketentuan yang berlaku.</li>
+        </ol>
+ 
+        <h2>Wali Hakim untuk Wali yang Tidak Ada</h2>
+        <p>Selain kasus adhal, wali hakim juga berlaku ketika:</p>
+        <ul>
+          <li>Seluruh wali nasab telah meninggal dunia.</li>
+          <li>Wali nasab tidak diketahui keberadaannya (<em>mafqud</em>) dalam waktu yang lama.</li>
+          <li>Wali nasab dalam kondisi gila atau tidak cakap hukum.</li>
+          <li>Wali nasab sedang menjalani hukuman penjara.</li>
+        </ul>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Institusi wali hakim hadir sebagai solusi syar'i yang bijaksana untuk memastikan perempuan tidak terzalimi oleh penolakan wali yang tidak berdasar. Ini menunjukkan betapa Islam sangat memperhatikan hak perempuan untuk menikah dengan orang yang layak dan dikehendakinya dalam koridor syariat.</p>
+        </div>
+      `
+    },
+    4: {
+      label: 'Artikel 04', labelClass: 'text-orange-600 bg-orange-50 border-orange-200',
+      category: 'Hukum Perkawinan', readtime: '8 menit baca',
+
+      title: 'Poligami dalam Hukum Islam dan Hukum Positif Indonesia',
+      body: `
+        <p>Poligami adalah salah satu isu dalam fiqih Islam yang paling banyak diperdebatkan, baik di kalangan muslim sendiri maupun dalam wacana hak asasi manusia global. Memahaminya dengan tepat berdasarkan Al-Qur'an, Sunnah, dan regulasi hukum positif Indonesia adalah suatu keharusan.</p>
+ 
+        <h2>Landasan Poligami dalam Al-Qur'an</h2>
+        <p>Surah An-Nisa ayat 3 menjadi landasan utama kebolehan poligami, namun dengan syarat yang sangat ketat:</p>
+        <blockquote>
+          <p>"...maka kawinilah wanita-wanita (lain) yang kamu senangi: dua, tiga, atau empat. Kemudian jika kamu takut tidak akan dapat berlaku adil, maka (kawinilah) seorang saja..."</p>
+          <cite>— QS. An-Nisa: 3</cite>
+        </blockquote>
+        <p>Ayat lanjutannya (An-Nisa: 129) memberikan peringatan keras: <em>"Dan kamu sekali-kali tidak akan dapat berlaku adil di antara istri-istri(mu), walaupun kamu sangat ingin berbuat demikian."</em> Para ulama menafsirkan ini sebagai isyarat betapa sulitnya memenuhi syarat keadilan dalam poligami.</p>
+ 
+        <h2>Regulasi Poligami di Indonesia</h2>
+        <p>UU No. 1 Tahun 1974 jo. UU No. 16 Tahun 2019 dan KHI mengatur poligami dengan ketat:</p>
+        <ul>
+          <li><strong>Asas dasar pernikahan adalah monogami</strong> — satu suami satu istri.</li>
+          <li>Poligami hanya boleh dengan <strong>izin tertulis Pengadilan Agama</strong>.</li>
+          <li>Permohonan poligami wajib disertai persetujuan istri pertama (secara tertulis atau di hadapan sidang).</li>
+          <li>Suami harus membuktikan kemampuan finansial untuk menafkahi seluruh keluarga.</li>
+          <li>Suami harus mampu berlaku adil terhadap seluruh istri dan anak-anak.</li>
+        </ul>
+ 
+        <h2>Alasan Hukum yang Diperbolehkan untuk Berpoligami</h2>
+        <p>Pasal 57 KHI menyebutkan alasan yang dapat dipertimbangkan Pengadilan Agama:</p>
+        <ol>
+          <li>Istri tidak dapat menjalankan kewajibannya sebagai istri.</li>
+          <li>Istri mendapatkan penyakit yang tidak dapat disembuhkan.</li>
+          <li>Istri tidak dapat melahirkan keturunan.</li>
+        </ol>
+ 
+        <h2>Konsekuensi Poligami Tanpa Izin Pengadilan</h2>
+        <p>Poligami liar membawa dampak hukum yang serius:</p>
+        <ul>
+          <li>Pernikahan kedua dan seterusnya <strong>tidak memiliki kekuatan hukum negara</strong>.</li>
+          <li>Hak-hak istri kedua dan anak-anaknya tidak terlindungi secara hukum.</li>
+          <li>Suami dan pejabat pencatat nikah yang melanggar dapat dikenai sanksi.</li>
+          <li>Anak dari pernikahan yang tidak tercatat mengalami ketidakpastian status hukum.</li>
+        </ul>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Indonesia menganut prinsip monogami sebagai norma utama dengan poligami sebagai pengecualian yang sangat ketat dan memerlukan pengawasan pengadilan. Ini adalah upaya negara untuk melindungi hak perempuan sekaligus menghormati ajaran Islam yang sesungguhnya tidak "menganjurkan" poligami, melainkan membolehkannya dalam kondisi darurat tertentu saja.</p>
+        </div>
+      `
+    },
+    5: {
+      label: 'Artikel 05', labelClass: 'text-purple-600 bg-purple-50 border-purple-200',
+      category: 'Perjanjian Perkawinan', readtime: '7 menit baca',
+
+      title: 'Eksplorasi Perjanjian Pranikah (Pre-Nuptial Agreement) Perspektif Syariah',
+      body: `
+        <p>Perjanjian pranikah atau <em>prenuptial agreement</em> kini semakin populer di kalangan pasangan muslim Indonesia. Namun masih banyak yang belum memahami dengan tepat landasan syar'inya, hal-hal yang boleh diperjanjikan, dan batasan-batasannya dalam hukum Islam.</p>
+ 
+        <h2>Dasar Hukum Perjanjian Pranikah dalam Islam</h2>
+        <p>Islam membolehkan perjanjian pranikah yang dalam fikih dikenal sebagai <strong><em>asy-syuruth fi al-'aqd</em></strong> (syarat-syarat dalam akad). Kebolehannya didasarkan pada hadis:</p>
+        <blockquote>
+          <p>"Sesungguhnya syarat-syarat yang paling layak dipenuhi adalah syarat-syarat yang dengannya kamu menghalalkan kemaluan (pernikahan)."</p>
+          <cite>— HR. Bukhari dan Muslim</cite>
+        </blockquote>
+        <p>Para ulama sepakat bahwa syarat dalam pernikahan boleh dibuat selama <strong>tidak menghalalkan yang haram, tidak mengharamkan yang halal</strong>, dan tidak bertentangan dengan rukun dan syarat pernikahan itu sendiri.</p>
+ 
+        <h2>Hal-Hal yang Boleh Diperjanjikan</h2>
+        <p>Dalam perspektif Islam dan KHI Pasal 45-52, pasangan boleh memperjanjikan:</p>
+        <ul>
+          <li><strong>Tempat tinggal</strong> — istri mensyaratkan tinggal di kota atau daerah tertentu.</li>
+          <li><strong>Pendidikan</strong> — suami berkewajiban membiayai pendidikan lanjutan istri.</li>
+          <li><strong>Karir</strong> — istri diperbolehkan melanjutkan karir profesionalnya.</li>
+          <li><strong>Pembagian harta bersama</strong> dengan proporsi tertentu yang disepakati.</li>
+          <li><strong>Larangan poligami</strong> selama pernikahan berlangsung (menurut sebagian ulama).</li>
+          <li><strong>Pengelolaan keuangan</strong> rumah tangga secara transparan dan terstruktur.</li>
+        </ul>
+ 
+        <h2>Hal-Hal yang TIDAK Boleh Diperjanjikan</h2>
+        <p>Ada batasan tegas yang tidak boleh dilanggar dalam perjanjian pranikah islami:</p>
+        <ul>
+          <li>Menghapus atau mengurangi hak mahar istri.</li>
+          <li>Menetapkan bahwa suami tidak berkewajiban menafkahi istri.</li>
+          <li>Mensyaratkan talak tidak berlaku dalam kondisi apapun.</li>
+          <li>Syarat yang bertentangan dengan rukun dan syarat nikah yang wajib.</li>
+          <li>Perjanjian yang merugikan salah satu pihak secara tidak adil.</li>
+        </ul>
+ 
+        <h2>Prosedur Resmi di Indonesia</h2>
+        <p>KHI Pasal 47 mengatur bahwa perjanjian perkawinan:</p>
+        <ol>
+          <li>Dapat dibuat sebelum atau pada saat pernikahan dilangsungkan.</li>
+          <li>Harus <strong>dicatatkan oleh Pegawai Pencatat Nikah</strong> agar memiliki kekuatan hukum.</li>
+          <li>Tidak boleh melanggar batas-batas hukum, agama, dan kesusilaan.</li>
+          <li>Mulai berlaku sejak pernikahan dilangsungkan.</li>
+        </ol>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Perjanjian pranikah yang syar'i adalah instrumen perlindungan yang sah dan dianjurkan, bukan tanda ketidakpercayaan. Ia justru merupakan bentuk kematangan dan kejujuran kedua pasangan dalam membangun fondasi rumah tangga yang transparan dan berkeadilan.</p>
+        </div>
+      `
+    },
+    6: {
+      label: 'Artikel 06', labelClass: 'text-red-600 bg-red-50 border-red-200',
+      category: 'Hukum Perkawinan', readtime: '7 menit baca',
+
+      title: 'Aspek Hukum Nikah Siri dan Dampak Yuridisnya di Mata Negara',
+      body: `
+        <p>Nikah siri adalah pernikahan yang <strong>sah secara agama</strong> (memenuhi rukun dan syarat nikah) namun <strong>tidak dicatatkan</strong> di Kantor Urusan Agama (KUA) atau instansi berwenang. Fenomena ini masih sangat umum terjadi di Indonesia dengan berbagai alasan yang melatarbelakanginya.</p>
+ 
+        <h2>Mengapa Orang Melakukan Nikah Siri?</h2>
+        <p>Beberapa alasan yang sering dikemukakan:</p>
+        <ul>
+          <li>Menghindari prosedur administrasi yang dianggap rumit atau mahal.</li>
+          <li>Salah satu pihak masih terikat pernikahan yang belum diceraikan secara hukum.</li>
+          <li>Perbedaan agama (yang sebenarnya dilarang dalam KHI).</li>
+          <li>Ketidaktahuan tentang kewajiban pencatatan pernikahan.</li>
+          <li>Kondisi darurat atau menghindari perzinaan.</li>
+        </ul>
+ 
+        <h2>Status Hukum Nikah Siri</h2>
+        <p>Dari dua sudut pandang hukum, nikah siri memiliki status yang berbeda:</p>
+        <ul>
+          <li><strong>Hukum Agama:</strong> Sah jika memenuhi seluruh rukun nikah (mempelai, wali, dua saksi, ijab qabul, dan mahar).</li>
+          <li><strong>Hukum Negara:</strong> Tidak diakui karena tidak tercatat — tidak memiliki akta nikah yang diakui hukum positif Indonesia.</li>
+        </ul>
+ 
+        <blockquote>
+          <p>"Pencatatan pernikahan adalah salah satu bentuk <em>walimah 'ursy</em> modern yang berfungsi sebagai pengumuman resmi kepada negara dan masyarakat."</p>
+          <cite>— Pandangan Ulama Kontemporer</cite>
+        </blockquote>
+ 
+        <h2>Dampak Hukum bagi Pihak Istri</h2>
+        <p>Perempuan adalah pihak yang paling dirugikan dalam nikah siri:</p>
+        <ul>
+          <li>Tidak berhak atas nafkah dan warisan secara hukum negara.</li>
+          <li>Tidak dapat mengajukan gugatan cerai ke Pengadilan Agama.</li>
+          <li>Tidak mendapat perlindungan hukum dari Undang-Undang KDRT.</li>
+          <li>Rentan ditelantarkan tanpa konsekuensi hukum bagi pelaku.</li>
+        </ul>
+ 
+        <h2>Dampak Hukum bagi Anak</h2>
+        <p>Anak-anak dari pernikahan sirri menanggung beban hukum yang berat:</p>
+        <ul>
+          <li>Secara hukum hanya memiliki hubungan perdata dengan ibu.</li>
+          <li>Tidak dapat dicantumkan nama ayah dalam akta kelahiran.</li>
+          <li>Menghadapi kesulitan administratif dalam pendidikan dan dokumen kenegaraan.</li>
+          <li>Tidak mendapat hak waris dari jalur ayah secara hukum negara.</li>
+        </ul>
+ 
+        <h2>Solusi: Itsbat Nikah</h2>
+        <p>Pasangan yang telah melakukan nikah siri dapat mengupayakan pengakuan hukum melalui <strong><em>itsbat nikah</em></strong> (penetapan pernikahan) di Pengadilan Agama. Caranya:</p>
+        <ol>
+          <li>Mengajukan permohonan itsbat nikah ke PA setempat.</li>
+          <li>Menyertakan bukti bahwa pernikahan telah dilaksanakan sesuai syariat (kesaksian wali, saksi nikah, dll.).</li>
+          <li>PA mengeluarkan penetapan yang menjadi dasar pencatatan resmi di KUA.</li>
+        </ol>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Pencatatan pernikahan bukan sekadar formalitas administratif, melainkan perlindungan nyata bagi seluruh anggota keluarga — terutama istri dan anak-anak. Islam pun mengajarkan agar pernikahan diumumkan (<em>i'lan</em>), dan pencatatan negara adalah bentuk i'lan yang paling kuat di era modern ini.</p>
+        </div>
+      `
+    },
+    7: {
+      label: 'Artikel 07', labelClass: 'text-teal-600 bg-teal-50 border-teal-200',
+      category: 'Panduan Pranikah', readtime: '6 menit baca',
+
+      title: 'Kriteria Memilih Pasangan Hidup Ideal Berdasarkan Asas Kafa\'ah (Kesetaraan)',
+      body: `
+        <p><strong><em>Kafa'ah</em></strong> dalam bahasa Arab bermakna kesepadanan atau kesetaraan. Dalam fiqih munakahat, kafa'ah adalah konsep yang mempertimbangkan kesepadanan antara calon suami dan istri dalam aspek-aspek tertentu sebagai upaya meminimalisir potensi konflik rumah tangga dan memaksimalkan kemungkinan keharmonisan.</p>
+ 
+        <h2>Aspek-Aspek Kafa'ah menurut Ulama Klasik</h2>
+        <p>Para ulama berbeda pendapat tentang aspek kafa'ah yang perlu dipertimbangkan, namun berikut yang paling banyak disepakati:</p>
+        <ul>
+          <li><strong>Agama (Dien)</strong> — Satu-satunya kafa'ah yang disepakati seluruh ulama sebagai yang paling utama.</li>
+          <li><strong>Kemerdekaan</strong> — Relevan di masa lalu (budak vs merdeka), kini tidak lagi relevan.</li>
+          <li><strong>Nasab (keturunan)</strong> — Ulama berbeda pendapat; ada yang menganggapnya penting, ada yang tidak.</li>
+          <li><strong>Kemampuan menafkahi</strong> — Ulama Hanafi dan Hambali menekankan ini bagi calon suami.</li>
+          <li><strong>Profesi dan pekerjaan</strong> — Dipertimbangkan oleh sebagian mazhab.</li>
+        </ul>
+ 
+        <h2>Prioritas Utama: Kafa'ah dalam Agama</h2>
+        <blockquote>
+          <p>"Wanita dinikahi karena empat hal: hartanya, nasabnya, kecantikannya, dan agamanya. Pilihlah yang beragama niscaya kamu beruntung."</p>
+          <cite>— HR. Bukhari dan Muslim</cite>
+        </blockquote>
+        <p>Hadis ini tidak melarang mempertimbangkan faktor lain, tetapi <strong>menegaskan prioritas utama</strong>. Seseorang yang kuat agamanya akan cenderung berlaku baik, amanah, dan bertanggung jawab dalam rumah tangga.</p>
+ 
+        <h2>Kafa'ah dalam Konteks Kehidupan Modern</h2>
+        <p>Tanpa mengesampingkan kafa'ah agama sebagai prioritas, konteks modern memungkinkan pertimbangan tambahan yang relevan:</p>
+        <ul>
+          <li><strong>Kesepadanan pendidikan</strong> — untuk meminimalisir gap intelektual dan cara berpikir.</li>
+          <li><strong>Kesesuaian visi hidup</strong> — tujuan jangka panjang, cara mendidik anak, prioritas hidup.</li>
+          <li><strong>Kompatibilitas nilai</strong> — termasuk gaya hidup, pengelolaan keuangan, dan prioritas keluarga.</li>
+          <li><strong>Kesiapan psikologis dan emosional</strong> — kematangan dalam menghadapi konflik dan tekanan.</li>
+        </ul>
+ 
+        <h2>Yang Bukan Ukuran Kafa'ah yang Tepat</h2>
+        <p>Islam tidak menjadikan hal-hal berikut sebagai tolak ukur utama kafa'ah:</p>
+        <ul>
+          <li>Kekayaan semata dan status ekonomi yang berlebihan.</li>
+          <li>Status sosial dan titel kebangsawanan.</li>
+          <li>Penampilan fisik sebagai pertimbangan dominan.</li>
+          <li>Popularitas atau pengikut media sosial.</li>
+        </ul>
+ 
+        <h2>Peran Keluarga dalam Menilai Kafa'ah</h2>
+        <p>Wali (keluarga) memiliki hak untuk mempertimbangkan kafa'ah calon pasangan. Namun penolakan wali harus berdasar pada alasan yang objektif dan syar'i — bukan semata-mata preferensi pribadi atau gengsi keluarga.</p>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Pasangan yang ideal bukan yang sempurna di mata manusia, melainkan yang paling membantu kita mendekatkan diri kepada Allah dalam keseharian rumah tangga. Kafa'ah dalam agama adalah fondasinya, sementara kesepadanan dalam aspek lain adalah penunjangnya.</p>
+        </div>
+      `
+    },
+    8: {
+      label: 'Artikel 08', labelClass: 'text-amber-600 bg-amber-50 border-amber-200',
+      category: 'Manajemen Rumah Tangga', readtime: '8 menit baca',
+      
+      title: 'Manajemen Konflik Rumah Tangga: Konsep Nusyuz dan Langkah Mediasi',
+      body: `
+        <p>Konflik adalah bagian yang tak terhindarkan dari setiap hubungan manusia, termasuk pernikahan. <strong>Islam memberikan panduan yang komprehensif dan bertahap</strong> dalam menyelesaikan konflik rumah tangga, yang berpusat pada konsep <em>nusyuz</em> dan mekanisme mediasi yang terstruktur.</p>
+ 
+        <h2>Memahami Konsep Nusyuz</h2>
+        <p><em>Nusyuz</em> secara bahasa berarti "meninggi" atau "membangkang". Dalam fiqih, nusyuz merujuk pada sikap pembangkangan salah satu pasangan terhadap kewajiban pernikahannya. Al-Qur'an menyebutkan nusyuz dapat terjadi dari <strong>dua arah</strong>:</p>
+ 
+        <h3>Nusyuz Istri (QS. An-Nisa: 34)</h3>
+        <ul>
+          <li>Menolak memenuhi kewajiban istri terhadap suami tanpa alasan yang dibenarkan.</li>
+          <li>Keluar rumah tanpa izin suami ke tempat yang tidak diizinkan.</li>
+          <li>Bersikap durhaka, meremehkan, atau melecehkan suami secara tidak wajar.</li>
+        </ul>
+ 
+        <h3>Nusyuz Suami (QS. An-Nisa: 128)</h3>
+        <ul>
+          <li>Meninggalkan kewajiban nafkah lahir dan batin secara sengaja.</li>
+          <li>Bersikap kasar, melukai perasaan, atau melakukan kekerasan terhadap istri.</li>
+          <li>Mengabaikan hak-hak istri secara sistematis dan berkepanjangan.</li>
+        </ul>
+ 
+        <h2>Tahapan Penyelesaian Nusyuz Istri</h2>
+        <p>QS. An-Nisa: 34 menetapkan tiga tahapan penyelesaian yang harus dilalui secara berurutan:</p>
+        <ol>
+          <li><strong>Nasihat (Mau'izhah)</strong> — suami memberikan nasihat secara lembut, bijaksana, dan penuh kasih sayang, bukan dengan amarah atau kekerasan verbal.</li>
+          <li><strong>Pisah ranjang (Hajr)</strong> — bukan pisah rumah, melainkan pisah tidur sebagai sinyal ketidaksenangan dan ruang untuk merefleksikan diri. Ini bersifat terbatas waktu.</li>
+          <li><strong>Tindakan simbolis (Dharb)</strong> — para ulama kontemporer, termasuk Syekh Yusuf Qaradhawi, menafsirkan ini sebagai sentuhan yang tidak menyakiti dan lebih bersifat simbolis, bukan kekerasan fisik.</li>
+        </ol>
+ 
+        <blockquote>
+          <p>"Dan jika kamu khawatirkan ada persengketaan antara keduanya, maka kirimlah seorang hakam dari keluarga laki-laki dan seorang hakam dari keluarga perempuan. Jika kedua orang hakam itu bermaksud mengadakan perbaikan, niscaya Allah memberi taufik kepada suami-istri itu."</p>
+          <cite>— QS. An-Nisa: 35</cite>
+        </blockquote>
+ 
+        <h2>Mediasi Keluarga: Institusi Hakam</h2>
+        <p>Jika konflik tidak terselesaikan secara internal, Islam mewajibkan <strong>hakam</strong> (juru damai) dari kedua keluarga:</p>
+        <ul>
+          <li>Satu hakam dari keluarga pihak suami.</li>
+          <li>Satu hakam dari keluarga pihak istri.</li>
+          <li>Kedua hakam bertugas mendengar, memahami akar masalah, dan mencari titik temu.</li>
+          <li>Jika mediasi berhasil, pernikahan dilanjutkan dengan perbaikan yang disepakati.</li>
+          <li>Jika mediasi gagal total, baru dipertimbangkan perceraian sebagai solusi terakhir.</li>
+        </ul>
+ 
+        <h2>Prinsip Manajemen Konflik Islami</h2>
+        <ul>
+          <li><strong>Musyawarah</strong> adalah senjata utama — bicarakan masalah dengan kepala dingin.</li>
+          <li>Jangan membawa masalah rumah tangga ke ruang publik atau media sosial.</li>
+          <li>Libatkan pihak ketiga yang bijak dan netral bila diperlukan.</li>
+          <li>Ingat bahwa <strong>perceraian adalah halal yang paling dibenci Allah</strong> (HR. Abu Dawud).</li>
+          <li>Setiap konflik adalah ujian yang dapat memperkuat atau melemahkan ikatan pernikahan.</li>
+        </ul>
+ 
+        <div class="highlight-box">
+          <p><strong>Kesimpulan:</strong> Rumah tangga yang sakinah bukan berarti tanpa konflik, melainkan pasangan yang mampu menyelesaikan konflik dengan cara yang bermartabat, berlandaskan nilai-nilai Islam, dan selalu mengutamakan musyawarah di atas ego masing-masing.</p>
+        </div>
+      `
+    }
+  };
+ 
+  /* ═══════════════════════════════════════════════════════════
+     MODAL FUNCTIONS
+  ═══════════════════════════════════════════════════════════ */
+  function openArticle(id) {
+    var art = ARTICLES[id];
+    if (!art) return;
+ 
+    // Populate header
+    var labelEl = document.getElementById('modal-label');
+    labelEl.textContent = art.label;
+    labelEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ' + art.labelClass;
+ 
+    document.getElementById('modal-category').textContent  = art.category;
+    document.getElementById('modal-readtime').textContent  = art.readtime;
+    document.getElementById('modal-article-title').textContent = art.title;
+ 
+    // Populate body
+    document.getElementById('modal-content').innerHTML = art.body;
+ 
+    // Reset scroll
+    document.getElementById('modal-body').scrollTop = 0;
+ 
+    // Remove closing classes and open
+    var modal = document.getElementById('article-modal');
+    var card  = document.getElementById('modal-card');
+    modal.classList.remove('modal-closing');
+    card.classList.remove('modal-card-closing');
+    modal.classList.add('modal-open');
+ 
+    // Lock body scroll
+    document.body.style.overflow = 'hidden';
+  }
+ 
+  function closeArticleModal() {
+    var modal = document.getElementById('article-modal');
+    var card  = document.getElementById('modal-card');
+ 
+    // Animate out
+    modal.classList.add('modal-closing');
+    card.classList.add('modal-card-closing');
+ 
+    setTimeout(function() {
+      modal.classList.remove('modal-open', 'modal-closing');
+      card.classList.remove('modal-card-closing');
+      document.body.style.overflow = '';
+    }, 230);
+  }
+ 
+  function handleModalBackdropClick(e) {
+    // Close only if the click was directly on the backdrop (not the card)
+    if (e.target === document.getElementById('article-modal')) {
+      closeArticleModal();
+    }
+  }
+ 
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('article-modal');
+      if (modal.classList.contains('modal-open')) closeArticleModal();
+    }
+  });
+
+  
+//   Navbar
+  const PAGES = ['beranda','dasar-hukum','pranikah','panduan','artikel','faq','profil'];
+
+  function showPage(pageId) {
+    // Hide all pages
+    PAGES.forEach(function(id) {
+      var el = document.getElementById('page-' + id);
+      if (el) { el.classList.remove('active'); }
+    });
+
+    // Remove active class from all desktop nav items
+    document.querySelectorAll('#desktop-nav .nav-item').forEach(function(item) {
+      item.classList.remove('is-active');
+    });
+
+    // Show target page (small delay so animation re-triggers)
+    setTimeout(function() {
+      var target = document.getElementById('page-' + pageId);
+      if (target) { target.classList.add('active'); }
+    }, 10);
+
+    // Set active nav item
+    var activeItems = document.querySelectorAll('#desktop-nav .nav-item[data-page="' + pageId + '"]');
+    activeItems.forEach(function(item) { item.classList.add('is-active'); });
+
+    // Update mobile nav visual (optional highlight)
+    document.querySelectorAll('.mobile-nav').forEach(function(btn) {
+      btn.classList.remove('bg-amber-50','text-amber-600','font-bold');
+      if (btn.getAttribute('data-page') === pageId) {
+        btn.classList.add('bg-amber-50','text-amber-600','font-bold');
+      }
+    });
+
+    // Close mobile menu
+    document.getElementById('mobile-menu').classList.add('hidden');
+    document.getElementById('hamburger').classList.remove('open');
+
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleMobile() {
+    var menu = document.getElementById('mobile-menu');
+    var ham  = document.getElementById('hamburger');
+    var isHidden = menu.classList.contains('hidden');
+
+    if (isHidden) {
+      menu.classList.remove('hidden');
+      ham.classList.add('open');
+    } else {
+      menu.classList.add('hidden');
+      ham.classList.remove('open');
+    }
+  }
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('mobile-menu');
+    var navWrapper = document.querySelector('#navbar-wrapper .max-w-6xl');
+    if (!navWrapper.contains(e.target)) {
+      menu.classList.add('hidden');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+  });
+
+  // Init: show beranda on load
+  showPage('beranda');
+</script>
+
+</body>
+</html>
